@@ -1,8 +1,14 @@
-import React from 'react'
+import { useState, useContext } from 'react'
+import { UserContext } from '../context/userContext'
 import { Link } from 'react-router-dom'
+import SignUpModal from './SignUpModal'
 
-export default function NavBar() {
+export default function NavBar() { 
+
+  const {toggleModals} = useContext(UserContext)
+
   return (
+      <>
         <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
             <div className="container-fluid">
                 <Link className="navbar-brand" to="/">Bibliothèque de Pontault-Combault</Link>
@@ -24,12 +30,21 @@ export default function NavBar() {
 
 
                 <div className="d-flex">
-                    <Link className="btn btn-light my-2 my-sm-0 me-2" to="/connexion">Se connecter</Link>
-                    <Link className="btn btn-light my-2 my-sm-0 me-2" to="/identification">S'identifier</Link>
+                    <button
+                    onClick={() => toggleModals("signIn")} 
+                    className="btn btn-light my-2 my-sm-0 me-2"
+                    >Se connecter</button>
+
+                    <button 
+                    onClick={() => toggleModals("signUp")}
+                    className="btn btn-light my-2 my-sm-0 me-2" 
+                    >S'identifier</button>
+
                     <Link className="btn btn-secondary my-2 my-sm-0" to="/rechercher">Rechercher un livre</Link>
                 </div>
                 </div>
             </div>
         </nav>
+        </>
   )
 }
