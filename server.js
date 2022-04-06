@@ -22,7 +22,7 @@ mongoose.connect(process.env.MONGODB, {
   })
 
 //***********Configuration des routes*************** */
-app.use("/", router)
+app.use("/books", router)
 
 //***********Configuration du port*************** */
 const PORT = process.env.PORT || 5000

@@ -6,5 +6,5 @@ export const getHomePage = async (req, res) => {
     
     const books = await bookModel.find({})
     res.send(books)
-    console.log(books)
+    console.log(books) 
 }
