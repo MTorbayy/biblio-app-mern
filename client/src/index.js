@@ -1,5 +1,5 @@
-import React from 'react';
-import './index.css';
+import React from 'react'
+import "bootswatch/dist/minty/bootstrap.min.css"
 import App from './App';
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
