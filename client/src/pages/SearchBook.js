@@ -1,8 +1,10 @@
-import {useState, useEffect, useRef} from 'react'
+import {useState, useEffect, useRef, useContext} from 'react'
+import { UserContext } from '../context/userContext'
 
 export default function SearchBook() {
   
   const [titleSearchResult, setTitleSearchResult] = useState([])  
+  const {currentUser} = useContext(UserContext)
 
   
   
@@ -47,56 +49,68 @@ export default function SearchBook() {
   
   return (
     <div className="container mt-4">
-
+        
             <form onSubmit={handleTitleSearch} className="w-50">
-            <div className="input-group mb-3">
-                <input 
-                type="search"
-                ref={titleRef} 
-                className="form-control" 
-                placeholder="Recherche par titre" aria-label="titleSearch" aria-describedby="button-addon2"
-                required />
-                <button className="btn btn-primary" type="submit" id="search">Valider</button>
-            </div>
+                
+                <div class="form-group d-flex mb-3">
+                    <input 
+                    type="search" 
+                    ref={titleRef} 
+                    class="form-control" 
+                    placeholder="Recherche par titre" id="titleSearch" />
+                    <button className="btn btn-primary ms-3" type="submit" id="search">Valider</button>
+                </div>
+                
             </form>
 
             <form onSubmit={handleAuthorSearch} className="w-50">
-            <div className="input-group mb-3">
-                <input 
-                type="search"
-                ref={authorRef} 
-                className="form-control" 
-                placeholder="Recherche par auteur" aria-label="titleSearch" aria-describedby="button-addon2"
-                required />
-                <button className="btn btn-primary" type="submit" id="search">Valider</button>
-            </div>
+
+                <div class="form-group d-flex mb-3">
+                    <input 
+                    type="search" 
+                    ref={authorRef} 
+                    class="form-control" 
+                    placeholder="Recherche par auteur" id="authorSearch" />
+                    <button className="btn btn-primary ms-3" type="submit" id="search">Valider</button>
+                </div>
+
             </form>
-    
+        
+
         {titleSearchResult.map(book => {
             return (
-                <div key={book.id} className="card text-white bg-primary mb-3">
-                    <div className="card-header">
-                        <h3> Titre : {book.volumeInfo.title} </h3>
-                        <h4> {book.volumeInfo.subtitle} </h4>
+                <div key={book.id} className="card text-white bg-primary mb-3 ">
+                    <div className="card-header ">
+                        <h3 className='ms-3 mt-2'> Titre : {book.volumeInfo.title} </h3>
+                        <h5 className='ms-3'> {book.volumeInfo.subtitle} </h5>
                     </div>
                     
                     <div className="card-body">
 
                     <div key={book.id} className="row m-2">
                             <div className="col-6">
-                                    <h3> Auteur : {book.volumeInfo.authors}</h3>
+                                    <h3> Auteur : {book.volumeInfo.authors[0]}</h3>
                                     <img src={book.volumeInfo.imageLinks.smallThumbnail} />
                                     <p className='mt-2'>Nombre d'exemplaires disponibles : 2</p>
+                                    
                             </div>
 
 
                             <div className="col-6">
                                     <h2>Résumé : </h2>
                                     <p>{book.volumeInfo.description}</p>
+                                    
                             </div>
                         </div>
                         
                     </div>
+
+                    {currentUser && (
+                        <button 
+                        type="button" 
+                        className="btn btn-secondary w-25 mb-4 ms-4">Ajouter à ma liste d'emprunts</button>
+                    )}
+                    
                 </div>
             )
         })}
@@ -105,4 +119,5 @@ export default function SearchBook() {
     
   )
 }
+
 

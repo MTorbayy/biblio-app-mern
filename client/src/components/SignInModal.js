@@ -68,7 +68,7 @@ export default function SignInModal() {
 
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title">Sign In</h5>
+                            <h5 className="modal-title">Se connecter</h5>
                             <button 
                             onClick={closeModal}
                             className="btn-close"></button>

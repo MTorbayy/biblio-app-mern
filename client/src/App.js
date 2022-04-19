@@ -28,8 +28,6 @@ function App() {
   return (
     <>
       <NavBar/>
-      <SignUpModal/>
-      <SignInModal/>
       <Routes>
         <Route path="/" element={<HomePage/>} />
         <Route path='/contact' element={<h1 className='mt-4'>Contact</h1>}/>
@@ -40,6 +38,8 @@ function App() {
         </Route>
         <Route path='/*' element={<h1 className='mt-4'>Not Found 404</h1>}/>
       </Routes>
+      <SignUpModal/>
+      <SignInModal/>
     </>
   );
 }
