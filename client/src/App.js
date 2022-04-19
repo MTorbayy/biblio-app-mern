@@ -6,6 +6,7 @@ import Private from "./pages/Private/Private"
 import PrivateHome from "./pages/Private/PrivateHome/PrivateHome"
 import SignInModal from './components/SignInModal'
 import SignUpModal from './components/SignUpModal'
+import SearchBook from './pages/SearchBook'
 
 
 function App() {
@@ -32,7 +33,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage/>} />
         <Route path='/contact' element={<h1 className='mt-4'>Contact</h1>}/>
-        <Route path='/rechercher' element={<h1 className='mt-4'>Rechercher un livre</h1>}/>
+        <Route path='/rechercher' element={<SearchBook/>}/>
         <Route path="/private" element={<Private />}>
           <Route path="/private/private-home" element={<PrivateHome />} />
           <Route path="/private/prets-en-cours" element={<h1 className='mt-4'>Prêts en cours</h1>} />
