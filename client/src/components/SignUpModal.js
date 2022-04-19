@@ -13,6 +13,7 @@ export default function SignUpModal() {
 
     //Récupération des données renseignées dans les inputs
     const inputs = useRef([])
+    
 
     //Récupération du formulaire
     const formRef = useRef()
@@ -23,19 +24,21 @@ export default function SignUpModal() {
               inputs.current.push(el)
           }
       }
+      
+      
     
     //Actions à la validation du formulaire
     const handleForm = async (e) => {
         e.preventDefault() 
-    
-
+        
+        
         //Validation côté front :
         //Longueur mdp ok
-        if((inputs.current[1].value.length || inputs.current[2].value.length) < 6) {
+        if((inputs.current[3].value.length || inputs.current[4].value.length) < 6) {
             setValidation("Minimum 6 caractères")
             return
         } //Mots de passe identiques
-        else if (inputs.current[1].value !== inputs.current[2].value) {
+        else if (inputs.current[3].value !== inputs.current[4].value) {
             setValidation("Les mots de passe ne correspondent pas")
             return
         }
@@ -46,9 +49,13 @@ export default function SignUpModal() {
             
             //Création d'un nouvel utilisateur avec les inputs
             const credential = await signUp(
-                inputs.current[0].value, //email
-                inputs.current[1].value //mdp
+                inputs.current[2].value, //email
+                inputs.current[3].value //mdp
             )
+
+            //Enregistrement de l'utilisateur dans la bdd utilisateurs :
+            const name = inputs.current[0].value
+            const surname = inputs.current[1].value
             
             //Si inscription réussie : (sinon => catch)
             formRef.current.reset() //Remise à 0 des inputs
@@ -57,6 +64,7 @@ export default function SignUpModal() {
             //Redirection vers la page privée :
             toggleModals("close")
             navigate("/private/private-home")
+            
 
 
         } catch (err) {
@@ -70,9 +78,8 @@ export default function SignUpModal() {
                 setValidation("Cet email est déjà utilisé.")
             }
         }
-
-
     }
+
 
     const closeModal = () => {
         setValidation("")
@@ -109,6 +116,28 @@ export default function SignUpModal() {
                               className="sign-up-form"
                               onSubmit={handleForm}>
                                   <div className="mb-3">
+                                      <label htmlFor="name"
+                                      className='form-label'>Prénom</label>
+                                      <input
+                                      ref={addInputs} 
+                                      type="text" 
+                                      name="name"
+                                      required 
+                                      id="name" 
+                                      className="form-control" />
+                                  </div>
+                                  <div className="mb-3">
+                                      <label htmlFor="surname"
+                                      className='form-label'>Nom</label>
+                                      <input
+                                      ref={addInputs} 
+                                      type="text" 
+                                      name="surname"
+                                      required 
+                                      id="surname" 
+                                      className="form-control" />
+                                  </div>
+                                  <div className="mb-3">
                                       <label htmlFor="signUpEmail"
                                       className='form-label'>Adresse email</label>
                                       <input
@@ -117,7 +146,7 @@ export default function SignUpModal() {
                                       name="email"
                                       required 
                                       id="signUpEmail" 
-                                      className="form-control" />
+                                      className="form-control"/>
                                   </div>
   
                                   <div className="mb-3">

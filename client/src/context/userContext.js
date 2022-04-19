@@ -64,11 +64,10 @@ export function UserContextProvider(props) { //Composant d'ordre supérieur perm
     }
 
     return (
-        <UserContext.Provider value={{modalState, toggleModals, signUp, currentUser}}>
+        <UserContext.Provider value={{modalState, toggleModals, signUp, signIn, currentUser}}>
             {!loadingData && props.children} 
         {/* Ici props.children correspond à App */}
         {/* On envoie le props.children seulement quand les données sont chargées grâce à loadingData */}
         </UserContext.Provider>
     )
-    //, signIn
 }
