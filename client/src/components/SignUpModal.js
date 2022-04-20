@@ -29,33 +29,43 @@ export default function SignUpModal() {
       }
       
     //Création d'un nouvel utilisateur dans la bdd avec les informations fournies  
-
     const addUser = async () => {
-      console.log('il se passe quelque chose')
-
-      await fetch('/users/', {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type' : 'application/json'
-        },
-        method: 'POST',
-        body: JSON.stringify(newUser)
-      })
-    }
+            await fetch('/users/', {
+                headers: {
+                  Accept: 'application/json',
+                  'Content-Type' : 'application/json'
+                },
+                method: 'POST',
+                body: JSON.stringify(newUser)
+              })
+        }
     
+    
+    //Ajout de l'ID firebase au nouvel utilisateur
     useEffect( () => {
 
         if(currentUser) {
             if(newUser.userFirebaseID === "userFirebaseID") {
                 setNewUser({...newUser, userFirebaseID: currentUser.uid})
-                console.log('dans if2',newUser)
-            } else {
-                addUser()
+            } else if (newUser.userName) {
+                
+                const IDList = []
+                
+                const fetchData = async () => {
+                    const data = await fetch('/users/')
+                    const json = await data.json()
+                    
+                    json.forEach(item => {
+                        IDList.push(item.userFirebaseID)
+                    })
+                    
+                    if(!IDList.includes(newUser.userFirebaseID)) {
+                        addUser(newUser)
+                    }
+                }
+                fetchData()
             }
         }
-
-
-
     }, [currentUser, newUser])
 
 
@@ -98,12 +108,7 @@ export default function SignUpModal() {
             toggleModals("close")
             navigate("/private/private-home")
             
-            //Récupération de l'ID de firebase
-            // const userFirebaseID = currentUser.uid
-
-            // console.log(userFirebaseID)
-            
-            //Création d'un nouvel utilisateur dans la bdd mongodb
+            //Récupération du nom et du prénom utilisateur
             setNewUser({
                 userName: name,
                 userSurname: surname,
@@ -122,10 +127,6 @@ export default function SignUpModal() {
                 setValidation("Cet email est déjà utilisé.")
             }
         }
-
-        
-        //addUser()
-        
     }
 
 

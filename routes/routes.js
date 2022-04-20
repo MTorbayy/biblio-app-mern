@@ -1,12 +1,14 @@
 import express from 'express'
 import { catchErrors } from '../helpers.js'
-import {getHomePage, addUser} from '../controllers/userControllers.js'
+import {getUsers, getUser, addUser} from '../controllers/userControllers.js'
 
 //******Configuration du router******* */
 const router = express.Router()
 
 //**********Routes******************* */
-router.get('/', catchErrors(getHomePage))
+router.get('/', catchErrors(getUsers))
+
+router.get('/:id', catchErrors(getUser))
 
 router.post('/', catchErrors(addUser))
 
