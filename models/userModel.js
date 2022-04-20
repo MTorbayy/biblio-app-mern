@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-const bookSchema = mongoose.Schema({
+const userSchema = mongoose.Schema({
 
     userName: {
         type : String,
@@ -24,6 +24,6 @@ const bookSchema = mongoose.Schema({
     
 })
 
-const bookModel = mongoose.model('books', bookSchema) //Nom de la bdd
+const userModel = mongoose.model('users', userSchema) //Nom de la bdd
 
-export default bookModel
+export default userModel

@@ -1,12 +1,14 @@
 import express from 'express'
 import { catchErrors } from '../helpers.js'
-import {getHomePage} from '../controllers/bookControllers.js'
+import {getHomePage, addUser} from '../controllers/userControllers.js'
 
 //******Configuration du router******* */
 const router = express.Router()
 
 //**********Routes******************* */
 router.get('/', catchErrors(getHomePage))
+
+router.post('/', catchErrors(addUser))
 
 //*********Définition de l'adresse de la page html du projet client *************** */
 

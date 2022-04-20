@@ -1,1 +1,25 @@
 GET http://localhost:5000/books
+
+###
+
+POST http://localhost:5000/users HTTP/1.1
+Content-Type: application/json
+
+{   
+    "userName": "Marielle",
+    "userSurname": "Torbay",
+    "userLoans": [
+        {
+            "googleId": "livre1",
+            "loanDate": "2012-04-21T18:25:43-05:00",
+            "endLoanDate": "2022-04-21T18:25:43-05:00",
+            "loanRenewed": false
+        },
+        {
+            "googleId": "livre1",
+            "loanDate": "2002-04-21T18:25:43-05:00",
+            "endLoanDate": "2012-04-21T18:25:43-05:00",
+            "loanRenewed": false
+        }
+    ]
+}

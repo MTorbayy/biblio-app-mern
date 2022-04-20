@@ -1,4 +1,4 @@
-//import {useState, useEffect} from 'react'
+import {useState, useEffect} from 'react'
 import NavBar from './components/NavBar'
 import {Routes, Route} from 'react-router-dom'
 import HomePage from './pages/HomePage'
@@ -11,19 +11,49 @@ import SearchBook from './pages/SearchBook'
 
 function App() {
 
-  // const [books, setBooks] = useState([])
+  const [books, setBooks] = useState([])
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const data = await fetch('/books/')
-  //     const json = await data.json()
-  //     setBooks(json)
-  //   }
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetch('/users/')
+      const json = await data.json()
+      setBooks(json)
+    }
 
-  //   fetchData()
-  // }, [])
+    fetchData()
 
-  // console.log(books)
+    const addBook = async () => {
+      await fetch('/users/', {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type' : 'application/json'
+        },
+        method: 'POST',
+        body: JSON.stringify({   
+          userName: "Stéphane",
+          userSurname: "Torbay",
+          userLoans: [
+              {
+                  googleId: "livre1",
+                  loanDate: "2012-04-21T18:25:43-05:00",
+                  endLoanDate: "2022-04-21T18:25:43-05:00",
+                  loanRenewed: false
+              },
+              {
+                  googleId: "livre1",
+                  loanDate: "2002-04-21T18:25:43-05:00",
+                  endLoanDate: "2012-04-21T18:25:43-05:00",
+                  loanRenewed: false
+              }
+          ]
+      })
+      })
+    }
+
+    addBook()
+  }, [])
+
+  console.log(books)
   
   return (
     <>
