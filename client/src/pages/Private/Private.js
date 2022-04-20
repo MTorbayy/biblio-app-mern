@@ -7,7 +7,7 @@ import {Outlet, useLocation, Navigate } from 'react-router-dom'
 export default function Private() {
 
     const {currentUser} = useContext(UserContext)
-    console.log("PRIVATE", currentUser)
+    // console.log("PRIVATE", currentUser)
 
     //Si pas de user, alors back to home :
     if(!currentUser) {

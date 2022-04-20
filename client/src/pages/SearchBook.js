@@ -52,11 +52,11 @@ export default function SearchBook() {
         
             <form onSubmit={handleTitleSearch} className="w-50">
                 
-                <div class="form-group d-flex mb-3">
+                <div className="form-group d-flex mb-3">
                     <input 
                     type="search" 
                     ref={titleRef} 
-                    class="form-control" 
+                    className="form-control" 
                     placeholder="Recherche par titre" id="titleSearch" />
                     <button className="btn btn-primary ms-3" type="submit" id="search">Valider</button>
                 </div>
@@ -65,11 +65,11 @@ export default function SearchBook() {
 
             <form onSubmit={handleAuthorSearch} className="w-50">
 
-                <div class="form-group d-flex mb-3">
+                <div className="form-group d-flex mb-3">
                     <input 
                     type="search" 
                     ref={authorRef} 
-                    class="form-control" 
+                    className="form-control" 
                     placeholder="Recherche par auteur" id="authorSearch" />
                     <button className="btn btn-primary ms-3" type="submit" id="search">Valider</button>
                 </div>

@@ -1,4 +1,4 @@
-import {useContext, useState, useRef} from 'react'
+import {useContext, useState, useRef, useEffect} from 'react'
 import {UserContext} from "../context/userContext"
 import {useNavigate} from 'react-router-dom'
 
@@ -10,6 +10,9 @@ export default function SignUpModal() {
 
     //Message de validation
     const [validation, setValidation] = useState('')
+
+    //Nouvel utilisateur pour bdd
+    const [newUser, setNewUser] = useState({})
 
     //Récupération des données renseignées dans les inputs
     const inputs = useRef([])
@@ -25,8 +28,37 @@ export default function SignUpModal() {
           }
       }
       
-      
+    //Création d'un nouvel utilisateur dans la bdd avec les informations fournies  
+
+    const addUser = async () => {
+      console.log('il se passe quelque chose')
+
+      await fetch('/users/', {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type' : 'application/json'
+        },
+        method: 'POST',
+        body: JSON.stringify(newUser)
+      })
+    }
     
+    useEffect( () => {
+
+        if(currentUser) {
+            if(newUser.userFirebaseID === "userFirebaseID") {
+                setNewUser({...newUser, userFirebaseID: currentUser.uid})
+                console.log('dans if2',newUser)
+            } else {
+                addUser()
+            }
+        }
+
+
+
+    }, [currentUser, newUser])
+
+
     //Actions à la validation du formulaire
     const handleForm = async (e) => {
         e.preventDefault() 
@@ -57,6 +89,7 @@ export default function SignUpModal() {
             const name = inputs.current[0].value
             const surname = inputs.current[1].value
             
+            
             //Si inscription réussie : (sinon => catch)
             formRef.current.reset() //Remise à 0 des inputs
             setValidation("") //Remise à 0 du message de validation
@@ -65,8 +98,19 @@ export default function SignUpModal() {
             toggleModals("close")
             navigate("/private/private-home")
             
+            //Récupération de l'ID de firebase
+            // const userFirebaseID = currentUser.uid
 
-
+            // console.log(userFirebaseID)
+            
+            //Création d'un nouvel utilisateur dans la bdd mongodb
+            setNewUser({
+                userName: name,
+                userSurname: surname,
+                userFirebaseID: "userFirebaseID",
+                userLoans: []
+            })
+            
         } catch (err) {
             //Validation côté serveur : en cas d'erreur (ex deux fois le même user cherche à s'inscrire)
 
@@ -78,6 +122,10 @@ export default function SignUpModal() {
                 setValidation("Cet email est déjà utilisé.")
             }
         }
+
+        
+        //addUser()
+        
     }
 
 
@@ -86,6 +134,8 @@ export default function SignUpModal() {
         toggleModals("close")
     }
 
+    
+    
 
   return (
     <>

@@ -13,47 +13,47 @@ function App() {
 
   const [books, setBooks] = useState([])
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await fetch('/users/')
-      const json = await data.json()
-      setBooks(json)
-    }
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const data = await fetch('/users/')
+  //     const json = await data.json()
+  //     setBooks(json)
+  //   }
 
-    fetchData()
+  //   fetchData()
 
-    const addBook = async () => {
-      await fetch('/users/', {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type' : 'application/json'
-        },
-        method: 'POST',
-        body: JSON.stringify({   
-          userName: "Stéphane",
-          userSurname: "Torbay",
-          userLoans: [
-              {
-                  googleId: "livre1",
-                  loanDate: "2012-04-21T18:25:43-05:00",
-                  endLoanDate: "2022-04-21T18:25:43-05:00",
-                  loanRenewed: false
-              },
-              {
-                  googleId: "livre1",
-                  loanDate: "2002-04-21T18:25:43-05:00",
-                  endLoanDate: "2012-04-21T18:25:43-05:00",
-                  loanRenewed: false
-              }
-          ]
-      })
-      })
-    }
+  //   const addBook = async () => {
+  //     await fetch('/users/', {
+  //       headers: {
+  //         Accept: 'application/json',
+  //         'Content-Type' : 'application/json'
+  //       },
+  //       method: 'POST',
+  //       body: JSON.stringify({   
+  //         userName: "Stéphane",
+  //         userSurname: "Torbay",
+  //         userLoans: [
+  //             {
+  //                 googleId: "livre1",
+  //                 loanDate: "2012-04-21T18:25:43-05:00",
+  //                 endLoanDate: "2022-04-21T18:25:43-05:00",
+  //                 loanRenewed: false
+  //             },
+  //             {
+  //                 googleId: "livre1",
+  //                 loanDate: "2002-04-21T18:25:43-05:00",
+  //                 endLoanDate: "2012-04-21T18:25:43-05:00",
+  //                 loanRenewed: false
+  //             }
+  //         ]
+  //     })
+  //     })
+  //   }
 
-    addBook()
-  }, [])
+  //   addBook()
+  // }, [])
 
-  console.log(books)
+  // console.log(books)
   
   return (
     <>

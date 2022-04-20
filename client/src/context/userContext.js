@@ -27,7 +27,7 @@ export function UserContextProvider(props) { //Composant d'ordre supérieur perm
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setCurrentUser(currentUser)
             setLoadingData(false)
-            console.log(currentUser.uid)
+            // console.log(currentUser.uid)
         })
 
         //Déconnexion lors de la destruction du composant (cleanup function)

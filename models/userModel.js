@@ -10,12 +10,13 @@ const userSchema = mongoose.Schema({
         type : String,
         required : true
     },
+    userFirebaseID: {
+        type : String,
+        required : true
+    },
     userLoans: [
         {
-            googleId: {
-                type : String,
-                required : true
-            },
+            googleId: String,
             loanDate: Date,
             endLoanDate: Date,
             loanRenewed: Boolean
