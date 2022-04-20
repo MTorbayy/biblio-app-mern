@@ -1,6 +1,6 @@
 import express from 'express'
 import { catchErrors } from '../helpers.js'
-import {getUsers, getUser, addUser} from '../controllers/userControllers.js'
+import {getUsers, getUser, addUser, updateUser} from '../controllers/userControllers.js'
 
 //******Configuration du router******* */
 const router = express.Router()
@@ -11,6 +11,8 @@ router.get('/', catchErrors(getUsers))
 router.get('/:id', catchErrors(getUser))
 
 router.post('/', catchErrors(addUser))
+
+router.patch('/update/:id', catchErrors(updateUser) )
 
 //*********Définition de l'adresse de la page html du projet client *************** */
 

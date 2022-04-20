@@ -6,12 +6,28 @@ POST http://localhost:5000/users HTTP/1.1
 Content-Type: application/json
 
 {   
-    "userName": "Marielle",
+    "userName": "Marielle2",
     "userSurname": "Torbay",
     "userFirebaseID": "jfjezio7733",
     "userLoans": [
         {
             "googleId": "livre1",
+            "loanDate": "2012-04-21T18:25:43-05:00",
+            "endLoanDate": "2022-04-21T18:25:43-05:00",
+            "loanRenewed": false
+        }
+    ]
+}
+
+###
+
+PATCH http://localhost:5000/users/update/6260406c78521e4cb878b428 HTTP/1.1
+content-type: application/json
+
+{
+    "userLoans": [
+        {
+            "googleId": "livre test 67s",
             "loanDate": "2012-04-21T18:25:43-05:00",
             "endLoanDate": "2022-04-21T18:25:43-05:00",
             "loanRenewed": false

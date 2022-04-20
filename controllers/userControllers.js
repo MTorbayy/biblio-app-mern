@@ -12,9 +12,16 @@ export const getUser = async (req, res) => {
 }
 
 export const addUser = async (req, res) => {
-    console.log('coucou')
     const user = new userModel(req.body)
 
     await user.save()
     res.send(user)
+}
+
+export const updateUser = async (req, res) => {
+
+    const user = await userModel.findByIdAndUpdate(req.params.id, req.body)
+    await user.save()
+    res.send(user)
+
 }

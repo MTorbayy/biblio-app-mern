@@ -63,8 +63,29 @@ export function UserContextProvider(props) { //Composant d'ordre supérieur perm
         }
     }
 
+    //Gestion de l'utilisateur - BDD utilisateurs MongoDB
+    const [infoUser, setInfoUser] = useState({})
+    
+    useEffect(() => {
+        
+        if(currentUser) {
+            const getInfoUser = async () => {
+            
+                const data = await fetch(`/users/${currentUser.uid}`)
+                const json = await data.json()
+                setInfoUser(json)
+                
+            }
+
+            getInfoUser()
+        }
+
+    }, [currentUser])
+
+    console.log(infoUser)
+
     return (
-        <UserContext.Provider value={{modalState, toggleModals, signUp, signIn, currentUser}}>
+        <UserContext.Provider value={{modalState, toggleModals, signUp, signIn, currentUser, infoUser}}>
             {!loadingData && props.children} 
         {/* Ici props.children correspond à App */}
         {/* On envoie le props.children seulement quand les données sont chargées grâce à loadingData */}
