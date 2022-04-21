@@ -25,8 +25,8 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
 //Redirection vers le projet client
-// router.get('/*', (req, res) => {
-//     res.sendFile(path.join(__dirname, '../client/build/index.html'))
-// })
+router.get('/*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client/build/index.html'))
+})
 
 export default router

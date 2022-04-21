@@ -11,7 +11,7 @@ const app = express()
 
 app.use(express.json())
 
-//app.use(express.static('client/build'))
+app.use(express.static('client/build'))
 
 
 //***********Configuration mongoose*************** */
