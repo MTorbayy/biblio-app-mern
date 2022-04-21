@@ -6,15 +6,15 @@ import {getUsers, getUser, addUser, updateUser} from '../controllers/userControl
 const router = express.Router()
 
 //**********Routes******************* */
-router.get('/', catchErrors(getUsers))
+router.get('/users', catchErrors(getUsers))
 
-router.get('/:id', catchErrors(getUser))
+router.get('/users/:id', catchErrors(getUser))
 
-router.post('/', catchErrors(addUser))
+router.post('/users/', catchErrors(addUser))
 
 // router.patch('/update/:id', catchErrors(updateUser) )
 
-router.post('/update/:id', catchErrors(updateUser) )
+router.post('/users/update/:id', catchErrors(updateUser) )
 
 //*********Définition de l'adresse de la page html du projet client *************** */
 
