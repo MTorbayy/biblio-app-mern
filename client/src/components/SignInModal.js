@@ -39,7 +39,7 @@ export default function SignInModal() {
             //cred est un objet avec un nouvel utilisateur :
             //console.log(cred)
             toggleModals("close")
-            navigate("/private/private-home")
+            navigate("/")
 
 
         } catch {

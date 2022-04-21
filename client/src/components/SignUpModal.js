@@ -106,7 +106,7 @@ export default function SignUpModal() {
 
             //Redirection vers la page privée :
             toggleModals("close")
-            navigate("/private/private-home")
+            navigate("/")
             
             //Récupération du nom et du prénom utilisateur
             setNewUser({

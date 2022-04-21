@@ -1,5 +1,5 @@
 import {useState, useEffect, useRef, useContext} from 'react'
-import { UserContext } from '../../../context/userContext'
+import { UserContext } from '../context/userContext'
 
 export default function CurrentLoans() {
 

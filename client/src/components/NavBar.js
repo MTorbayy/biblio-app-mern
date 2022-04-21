@@ -79,7 +79,7 @@ export default function NavBar() {
                     </li>
                 </ul>
 
-                    <Link className="btn btn-secondary my-2 my-sm-0 me-2" to="/private/prets-en-cours">Prêts en cours</Link>
+                    <Link className="btn btn-secondary my-2 my-sm-0 me-2" to="/prets-en-cours">Prêts en cours</Link>
 
                     <Link className="btn btn-secondary my-2 my-sm-0 me-2" to="/rechercher">Rechercher un livre</Link>
 
