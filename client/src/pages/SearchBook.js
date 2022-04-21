@@ -90,7 +90,7 @@ export default function SearchBook() {
             googleId : book.id,
             title: book.volumeInfo.title,
             author : author,
-            loanDate: date,
+            loanDate: Date.now(),
             endLoanDate: date2Format,
             loanRenewed: false
         })

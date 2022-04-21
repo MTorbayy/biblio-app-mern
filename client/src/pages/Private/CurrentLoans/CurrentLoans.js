@@ -22,9 +22,10 @@ export default function CurrentLoans() {
     }, [])
 
 
+    //Supprimer un livre
     const deleteBook = (book) => {
 
-            const newLoans = []
+        const newLoans = []
 
         userLoans.forEach(item => {
             if(item._id != book._id) {
@@ -32,12 +33,7 @@ export default function CurrentLoans() {
             }
         })
 
-        console.log(newLoans)
-
         const newUser = {...user, userLoans : newLoans}
-
-        console.log(newUser)
-        console.log(user)
 
         const updateUser = async () => {
             await fetch(`/users/update/${user._id}`, {
@@ -48,6 +44,7 @@ export default function CurrentLoans() {
                 method: 'POST',
                 body: JSON.stringify(newUser)
             })
+            .then(alert("Le livre a bien été supprimé."))
         }
 
         updateUser()
@@ -56,6 +53,47 @@ export default function CurrentLoans() {
         
     }
 
+    //Prolonger l'emprunt
+    const changeDate = (book) => {
+
+        if (!book.loanRenewed) {
+            const newEndLoanDate = new Date(book.loanDate + (604800000*4))
+            const newEndLoadDateFormat = newEndLoanDate.toLocaleDateString('fr-FR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
+
+            const newBook = {...book, endLoanDate: newEndLoadDateFormat, loanRenewed : true}
+            const newLoans = []
+
+            userLoans.forEach((item) => {
+                if(item._id != book._id) {
+                    newLoans.push(item)
+                } else {
+                    newLoans.push(newBook)
+                }
+            })
+
+            const newUser = {...user, userLoans : newLoans }
+
+            const updateUser = async () => {
+                await fetch(`/users/update/${user._id}`, {
+                    headers: {
+                    Accept: 'application/json',
+                    'Content-Type' : 'application/json'
+                    },
+                    method: 'POST',
+                    body: JSON.stringify(newUser)
+                })
+                .then(alert("La durée de l'emprunt a été prolongée de deux semaines"))
+            }
+    
+            updateUser()
+            setUser(newUser)
+
+            window.location.reload()
+        } else {
+            alert("Vous avez déjà prolongé la durée de l'emprunt.")
+        }
+        
+    }
 
   return (
     <>
@@ -81,7 +119,12 @@ export default function CurrentLoans() {
                             <td>
                                 {item.endLoanDate}
                             </td>
-                            <td className="align-middle"><button type="button" className="btn btn-primary">Prolonger</button></td>
+                            <td className="align-middle">
+                                <button 
+                                onClick={() => changeDate(item)}
+                                type="button" 
+                                className="btn btn-primary">Prolonger</button>
+                            </td>
                             <td className="align-middle">
                                 <button 
                                 onClick={() => deleteBook(item)}
