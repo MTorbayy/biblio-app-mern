@@ -75,6 +75,10 @@ export default function SearchBook() {
         //Mise à jour des emprunts
         const newLoans = [...user.userLoans]
         let author = ""
+        const date = Date.now()
+        const date2 = new Date(date + (604800000*2))
+        const date2Format = date2.toLocaleDateString('fr-FR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
+        
 
         if (Array.isArray(book.volumeInfo.authors)) {
             author = book.volumeInfo.authors[0]
@@ -86,15 +90,13 @@ export default function SearchBook() {
             googleId : book.id,
             title: book.volumeInfo.title,
             author : author,
-            loanDate: new Date(),
-            endLoanDate: new Date(),
+            loanDate: date,
+            endLoanDate: date2Format,
             loanRenewed: false
         })
         
         //Mise à jour de l'utilisateur
         const newUser = { ...user, userLoans: newLoans}
-
-        console.log(newUser)
 
         const updateUser = async () => {
             await fetch(`/users/update/${user._id}`, {
@@ -105,11 +107,12 @@ export default function SearchBook() {
                 method: 'POST',
                 body: JSON.stringify(newUser)
             })
+            .then(alert("Le livre a bien été rajouté à votre liste d'emprunts"))
         }
 
         updateUser()
         setUser(newUser)
-        alert("Le livre a bien été rajouté à votre liste d'emprunts")
+        
     } else {
         alert("Vous avez déjà emprunté ce livre, ou bien vous avez déjà atteint votre limite maximale de livres empruntés (10)")
     } 

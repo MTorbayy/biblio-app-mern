@@ -20,7 +20,7 @@ const userSchema = mongoose.Schema({
             title: String,
             author: String,
             loanDate: Date,
-            endLoanDate: Date,
+            endLoanDate: String,
             loanRenewed: Boolean
         }
     ]
