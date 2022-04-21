@@ -1,4 +1,4 @@
-GET http://localhost:5000/books
+GET http://localhost:5000/users
 
 ###
 
@@ -21,13 +21,13 @@ Content-Type: application/json
 
 ###
 
-PATCH http://localhost:5000/users/update/6260406c78521e4cb878b428 HTTP/1.1
+POST http://localhost:5000/users/update/626102c25295b4ffdd8a6958 HTTP/1.1
 content-type: application/json
 
 {
     "userLoans": [
         {
-            "googleId": "livre test 67s",
+            "googleId": "livre test fdezfzs",
             "loanDate": "2012-04-21T18:25:43-05:00",
             "endLoanDate": "2022-04-21T18:25:43-05:00",
             "loanRenewed": false

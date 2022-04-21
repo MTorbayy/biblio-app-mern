@@ -19,9 +19,13 @@ export const addUser = async (req, res) => {
 }
 
 export const updateUser = async (req, res) => {
+     console.log(req.body)
+    userModel.updateOne({_id : req.params.id}, req.body)
+    .exec()
+    .then(console.log('yes'))
 
-    const user = await userModel.findByIdAndUpdate(req.params.id, req.body)
-    await user.save()
-    res.send(user)
+    // const user = await userModel.findByIdAndUpdate({_id : req.params.id}, req.body)
+    // await user.save()
+    // res.send(user)
 
 }

@@ -4,12 +4,29 @@ import { UserContext } from '../context/userContext'
 export default function SearchBook() {
   
   const [titleSearchResult, setTitleSearchResult] = useState([])  
-  const {currentUser, infoUser} = useContext(UserContext)
-  const [newInfoUser, setNewInfoUser] = useState({})
+  const {currentUser} = useContext(UserContext)
+  const [user, setUser] = useState({})
 
-  console.log(currentUser.uid, infoUser)
+  console.log(currentUser.uid)
   
-  
+  //Initialisation de l'utilisateur courrant
+    useEffect(() => {
+        
+        if(currentUser) {
+            const getInfoUser = async () => {
+            
+                const data = await fetch(`/users/${currentUser.uid}`)
+                const json = await data.json()
+                setUser(json)
+                console.log(user)
+            }
+
+            getInfoUser()
+        }
+
+    }, [])
+
+
   //Recherche livre par titre
   const searchBookByTitle = (title) => {
     fetch(`https://www.googleapis.com/books/v1/volumes?q=${title}&langRestrict=fr`)
@@ -50,47 +67,48 @@ export default function SearchBook() {
   const titleRef = useRef()
   const authorRef = useRef()
 
-  const updateUser = async () => {
-    await fetch((`/users/update/${infoUser._id}`, {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type' : 'application/json'
-        },
-        method: 'PATCH',
-        body: JSON.stringify(infoUser)
-      }))
-  }
+  
 
-  const fetchData = async () => {
-        const data = await fetch(`/users/${currentUser.uid}`)
-        const json = await data.json()
-        console.log(json)
-      }
+//   const fetchData = async () => {
+//         const data = await fetch(`/users/${currentUser.uid}`)
+//         const json = await data.json()
+//         console.log(json)
+//       }
 
-  const addToLoans = (book) => {
+  const addToLoans = async (book) => {
     
+    
+
     //Mise à jour des emprunts
-    const newLoans = [...infoUser.userLoans]
+    const newLoans = [...user.userLoans]
 
     newLoans.push({
-        googleID : book.id,
+        googleId : book.id,
         loanDate: new Date(),
         endLoanDate: new Date(),
         loanRenewed: false
     })
 
+    console.log(newLoans)
+    
     //Mise à jour de l'utilisateur
-    const newUser = { ...infoUser, userLoans: newLoans}
-
-    setNewInfoUser(newUser)
+    const newUser = { ...user, userLoans: newLoans}
 
     console.log(newUser)
-    console.log(infoUser._id)
 
-    // updateUser()
-    fetchData()
+    const updateUser = async () => {
+        await fetch(`/users/update/${user._id}`, {
+            headers: {
+              Accept: 'application/json',
+              'Content-Type' : 'application/json'
+            },
+            method: 'POST',
+            body: JSON.stringify(newUser)
+          })
+      }
 
-    
+    updateUser()
+    setUser(newUser)
     }
   
   return (

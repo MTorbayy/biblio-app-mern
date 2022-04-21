@@ -13,7 +13,41 @@ function App() {
 
   const [books, setBooks] = useState([])
 
+///users/update/626041d878521e4cb878b435
+
   // useEffect(() => {
+
+  //   const updateUser = async () => {
+  //     await fetch('/users/update/625ffe668edb6fa8f00d76c6', {
+  //       headers: {
+  //         Accept: 'application/json',
+  //         'Content-Type' : 'application/json'
+  //       },
+  //       method: 'PATCH',
+  //       body: JSON.stringify({   
+  //         userName: "Coulibali",
+  //         userSurname: "Torbay",
+  //         userFirebaseID: "jreiozhrieoz",
+  //         userLoans: [
+  //           {
+  //               googleId: "livre1",
+  //               loanDate: "2012-04-21T18:25:43-05:00",
+  //               endLoanDate: "2022-04-21T18:25:43-05:00",
+  //               loanRenewed: false
+  //           },
+  //           {
+  //               googleId: "livre1",
+  //               loanDate: "2002-04-21T18:25:43-05:00",
+  //               endLoanDate: "2012-04-21T18:25:43-05:00",
+  //               loanRenewed: false
+  //           }
+  //       ]
+  //   })
+  //   })
+  // }
+    
+  // updateUser()
+
   //   const fetchData = async () => {
   //     const data = await fetch('/users/')
   //     const json = await data.json()
@@ -22,7 +56,7 @@ function App() {
 
   //   fetchData()
 
-  //   const addBook = async () => {
+  // const addBook = async () => {
   //     await fetch('/users/', {
   //       headers: {
   //         Accept: 'application/json',
@@ -30,8 +64,9 @@ function App() {
   //       },
   //       method: 'POST',
   //       body: JSON.stringify({   
-  //         userName: "Stéphane",
+  //         userName: "Coulibali",
   //         userSurname: "Torbay",
+  //         userFirebaseID: "jreiozhrieoz",
   //         userLoans: [
   //             {
   //                 googleId: "livre1",
@@ -50,7 +85,7 @@ function App() {
   //     })
   //   }
 
-  //   addBook()
+  //   // addBook()
   // }, [])
 
   // console.log(books)
