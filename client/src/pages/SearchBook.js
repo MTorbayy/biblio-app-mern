@@ -6,8 +6,6 @@ export default function SearchBook() {
   const [titleSearchResult, setTitleSearchResult] = useState([])  
   const {currentUser} = useContext(UserContext)
   const [user, setUser] = useState({})
-
-  console.log(currentUser.uid)
   
   //Initialisation de l'utilisateur courrant
     useEffect(() => {
@@ -18,14 +16,12 @@ export default function SearchBook() {
                 const data = await fetch(`/users/${currentUser.uid}`)
                 const json = await data.json()
                 setUser(json)
-                console.log(user)
             }
 
             getInfoUser()
         }
 
     }, [])
-
 
   //Recherche livre par titre
   const searchBookByTitle = (title) => {
@@ -67,48 +63,59 @@ export default function SearchBook() {
   const titleRef = useRef()
   const authorRef = useRef()
 
-  
-
-//   const fetchData = async () => {
-//         const data = await fetch(`/users/${currentUser.uid}`)
-//         const json = await data.json()
-//         console.log(json)
-//       }
-
-  const addToLoans = async (book) => {
+  const addToLoans = (book) => {
     
-    
+    const userLoansId = []
 
-    //Mise à jour des emprunts
-    const newLoans = [...user.userLoans]
-
-    newLoans.push({
-        googleId : book.id,
-        loanDate: new Date(),
-        endLoanDate: new Date(),
-        loanRenewed: false
+    user.userLoans.forEach(item => {
+        userLoansId.push(item.googleId)
     })
-
-    console.log(newLoans)
     
-    //Mise à jour de l'utilisateur
-    const newUser = { ...user, userLoans: newLoans}
+    if(!userLoansId.includes(book.id) && userLoansId.length < 10) {
+        //Mise à jour des emprunts
+        const newLoans = [...user.userLoans]
+        let author = ""
 
-    console.log(newUser)
+        if (Array.isArray(book.volumeInfo.authors)) {
+            author = book.volumeInfo.authors[0]
+        } else {
+            author = book.volumeInfo.authors
+        }
 
-    const updateUser = async () => {
-        await fetch(`/users/update/${user._id}`, {
-            headers: {
-              Accept: 'application/json',
-              'Content-Type' : 'application/json'
-            },
-            method: 'POST',
-            body: JSON.stringify(newUser)
-          })
-      }
+        newLoans.push({
+            googleId : book.id,
+            title: book.volumeInfo.title,
+            author : author,
+            loanDate: new Date(),
+            endLoanDate: new Date(),
+            loanRenewed: false
+        })
+        
+        //Mise à jour de l'utilisateur
+        const newUser = { ...user, userLoans: newLoans}
 
-    updateUser()
-    setUser(newUser)
+        console.log(newUser)
+
+        const updateUser = async () => {
+            await fetch(`/users/update/${user._id}`, {
+                headers: {
+                Accept: 'application/json',
+                'Content-Type' : 'application/json'
+                },
+                method: 'POST',
+                body: JSON.stringify(newUser)
+            })
+        }
+
+        updateUser()
+        setUser(newUser)
+        alert("Le livre a bien été rajouté à votre liste d'emprunts")
+    } else {
+        alert("Vous avez déjà emprunté ce livre, ou bien vous avez déjà atteint votre limite maximale de livres empruntés (10)")
+    } 
+    
+
+    
     }
   
   return (

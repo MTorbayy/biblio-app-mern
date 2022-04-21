@@ -17,6 +17,8 @@ const userSchema = mongoose.Schema({
     userLoans: [
         {
             googleId: String,
+            title: String,
+            author: String,
             loanDate: Date,
             endLoanDate: Date,
             loanRenewed: Boolean
