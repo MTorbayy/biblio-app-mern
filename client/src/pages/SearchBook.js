@@ -1,11 +1,16 @@
 import {useState, useEffect, useRef, useContext} from 'react'
+import { useNavigate } from 'react-router'
 import { UserContext } from '../context/userContext'
 
 export default function SearchBook() {
   
-  const [titleSearchResult, setTitleSearchResult] = useState([])  
+  const [searchResult, setSearcResult] = useState([])  
   const {currentUser} = useContext(UserContext)
   const [user, setUser] = useState({})
+  const [message, setMessage] = useState("")
+  let navigate = useNavigate()
+  
+  
   
   //Initialisation de l'utilisateur courrant
     useEffect(() => {
@@ -30,7 +35,18 @@ export default function SearchBook() {
         return response.json()
     })
     .then(data => {
-        setTitleSearchResult(data.items)
+        if(!data.items) {
+            setSearcResult([])
+            setMessage("Aucun résultat ne correspond à votre recherche.")
+        } else {
+            setSearcResult(data.items)
+            setMessage("")
+        }
+    })
+    .catch(err => {
+        alert("Oups, nous avons rencontré une erreur. Veuillez vérifier votre connexion et réessayer.")
+        
+        navigate('/rechercher')
     }) 
   } 
 
@@ -41,7 +57,18 @@ export default function SearchBook() {
         return response.json()
     })
     .then(data => {
-        setTitleSearchResult(data.items)
+        if(!data.items) {
+            setSearcResult([])
+            setMessage("Aucun résultat ne correspond à votre recherche.")
+        } else {
+            setSearcResult(data.items)
+            setMessage("")
+        }
+    })
+    .catch(err => {
+        alert("Oups, nous avons rencontré une erreur. Veuillez vérifier votre connexion et réessayer.")
+        
+        navigate('/rechercher')
     }) 
   } 
 
@@ -131,7 +158,9 @@ export default function SearchBook() {
                     type="search" 
                     ref={titleRef} 
                     className="form-control" 
-                    placeholder="Recherche par titre" id="titleSearch" />
+                    placeholder="Recherche par titre" 
+                    id="titleSearch"
+                    required />
                     <button className="btn btn-primary ms-3" type="submit" id="search">Valider</button>
                 </div>
                 
@@ -144,14 +173,15 @@ export default function SearchBook() {
                     type="search" 
                     ref={authorRef} 
                     className="form-control" 
-                    placeholder="Recherche par auteur" id="authorSearch" />
+                    placeholder="Recherche par auteur" id="authorSearch"
+                    required />
                     <button className="btn btn-primary ms-3" type="submit" id="search">Valider</button>
                 </div>
 
             </form>
         
 
-        {titleSearchResult.map(book => {
+        {searchResult.length > 0 ? searchResult.map(book => {
             return (
                 <div key={book.id} className="card text-white bg-primary mb-3 ">
                     <div className="card-header ">
@@ -164,7 +194,7 @@ export default function SearchBook() {
                     <div className="row m-2">
                             <div className="col-6">
                                     <h3> Auteur : {book.volumeInfo.authors}</h3>
-                                    <img src={book.volumeInfo.imageLinks.smallThumbnail} />
+                                    <img src={book.volumeInfo.imageLinks?.smallThumbnail} alt="" />
                                     <p className='mt-2'>Nombre d'exemplaires disponibles : 2</p>
                                     
                             </div>
@@ -190,7 +220,7 @@ export default function SearchBook() {
                     
                 </div>
             )
-        })}
+        }) : <div> {message} </div>}
 
     </div>
     

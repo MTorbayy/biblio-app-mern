@@ -38,6 +38,11 @@ export default function SignUpModal() {
                 method: 'POST',
                 body: JSON.stringify(newUser)
               })
+              .catch(err => {
+                alert("Oups, nous avons rencontré une erreur. Veuillez vérifier votre connexion et réessayer.")
+                
+                navigate('/')
+            })
         }
     
     

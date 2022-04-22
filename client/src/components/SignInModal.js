@@ -81,7 +81,7 @@ export default function SignInModal() {
                             className="sign-up-form">
                                 <div className="mb-3">
                                     <label htmlFor="signInEmail"
-                                    className='form-label'>Email address</label>
+                                    className='form-label'>Adresse email</label>
                                     <input 
                                     ref={addInputs}
                                     type="email" 
@@ -93,7 +93,7 @@ export default function SignInModal() {
 
                                 <div className="mb-3">
                                     <label htmlFor="signInPwd"
-                                    className='form-label'>Password</label>
+                                    className='form-label'>Mot de passe</label>
                                     <input 
                                     ref={addInputs}
                                     type="password" 
@@ -104,7 +104,7 @@ export default function SignInModal() {
                                     <p className="text-danger mt-1">{validation}</p>
                                 </div>
 
-                                <button className="btn btn-primary">Submit</button>
+                                <button className="btn btn-primary">Valider</button>
 
                             </form>
                         </div> 

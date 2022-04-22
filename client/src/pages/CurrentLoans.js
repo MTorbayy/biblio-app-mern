@@ -1,4 +1,5 @@
 import {useState, useEffect, useRef, useContext} from 'react'
+import { useNavigate } from 'react-router-dom'
 import { UserContext } from '../context/userContext'
 
 export default function CurrentLoans() {
@@ -6,6 +7,7 @@ export default function CurrentLoans() {
     const {currentUser} = useContext(UserContext)
     const [userLoans, setUserLoans] = useState([])
     const [user, setUser] = useState({})
+    let navigate = useNavigate()
 
 
 
@@ -83,6 +85,7 @@ export default function CurrentLoans() {
                     body: JSON.stringify(newUser)
                 })
                 .then(alert("La durée de l'emprunt a été prolongée de deux semaines"))
+                
             }
     
             updateUser()
