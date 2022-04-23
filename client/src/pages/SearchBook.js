@@ -134,7 +134,10 @@ export default function SearchBook() {
                 method: 'POST',
                 body: JSON.stringify(newUser)
             })
-            .then(alert("Le livre a bien été rajouté à votre liste d'emprunts"))
+            .then(
+                alert("L'emprunt a bien été réalisé.")
+            )
+                
         }
 
         updateUser()
@@ -150,6 +153,7 @@ export default function SearchBook() {
   
   return (
     <div className="container mt-4">
+
         
             <form onSubmit={handleTitleSearch} className="w-50">
                 

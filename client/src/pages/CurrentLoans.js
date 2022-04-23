@@ -1,6 +1,7 @@
 import {useState, useEffect, useRef, useContext} from 'react'
 import { useNavigate } from 'react-router-dom'
 import { UserContext } from '../context/userContext'
+import Flash from '../components/Flash'
 
 export default function CurrentLoans() {
 
@@ -8,7 +9,9 @@ export default function CurrentLoans() {
     const [userLoans, setUserLoans] = useState([])
     const [user, setUser] = useState({})
     let navigate = useNavigate()
-
+    const [message, setMessage] = useState("")
+    const [isAlert, setIsAlert] = useState(false)
+    
 
 
     //Initialisation de l'utilisateur courrant
@@ -101,7 +104,10 @@ export default function CurrentLoans() {
   return (
     <>
         <div className="container">   
+        
         {user.userName && <h1 className='mt-5'>{user.userName} {user.userSurname}, voici votre liste de prêts en cours.</h1>} 
+
+        <Flash/>
 
         <table className="table table-hover mt-5">
                 <thead>
@@ -109,7 +115,7 @@ export default function CurrentLoans() {
                     <th scope="col">Livres empruntés</th>
                     <th scope="col">Auteur</th>
                     <th scope="col">Date limite d'emprunt</th>
-                    <th scope="col">Prolonger d'une semaines</th>
+                    <th scope="col">Prolonger de deux semaines</th>
                     <th scope="col">Supprimer de ma liste</th>
                     </tr>
                 </thead>
