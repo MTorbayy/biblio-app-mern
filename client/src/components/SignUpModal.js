@@ -80,12 +80,15 @@ export default function SignUpModal() {
         
         
         //Validation côté front :
-        //Longueur mdp ok
-        // if((inputs.current[3].value.length || inputs.current[4].value.length) < 6) {
-        //     setValidation("Minimum 6 caractères")
-        //     return
-        // } 
-        // else 
+        // Longueur mdp ok
+        if(inputs.current[3].value.length === 0) {
+            setValidation("Oups, nous avons rencontré une erreur. Veuillez rafraichir la page et recommencer.")
+            return
+        } else if((inputs.current[3].value.length || inputs.current[4].value.length) < 6) {
+            setValidation("Minimum 6 caractères")
+            return
+        } 
+        else 
         
         //Mots de passe identiques
         if (inputs.current[3].value !== inputs.current[4].value) {
@@ -128,7 +131,7 @@ export default function SignUpModal() {
             //Validation côté serveur : en cas d'erreur (ex deux fois le même user cherche à s'inscrire)
 
             if(err.code === "auth/invalid-email") {
-                setValidation("Oups, nous avons rencontré une erreur. Veuillez rafraichir la page et renseigner une adresse mail valide.")
+                setValidation( "Merci de renseigner une adresse mail valide.")
             }
 
             if(err.code === "auth/email-already-in-use") {

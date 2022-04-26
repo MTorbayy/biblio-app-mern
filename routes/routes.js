@@ -12,8 +12,6 @@ router.get('/users/:id', catchErrors(getUser))
 
 router.post('/users/', catchErrors(addUser))
 
-// router.patch('/update/:id', catchErrors(updateUser) )
-
 router.post('/users/update/:id', catchErrors(updateUser) )
 
 //*********Définition de l'adresse de la page html du projet client *************** */
